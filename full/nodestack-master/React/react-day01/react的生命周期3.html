@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+
+
+class List extends React.Component{
+       
+    constructor(...args){
+        super(...args)
+　　　　　console.log("Constructor..")
+        this.state = {
+            now:0
+        }
+    }
+
+
+    componentWillMount(){
+        console.log("componentWillMount..")
+    }
+    
+    componentDidMount(){
+        console.log("componentDidMount..")
+
+        setTimeout(() => {
+            this.setState ({
+                now:100
+            })
+        }, 3000)
+
+
+        setTimeout(()=>{
+            console.log("sfasdfasdfasf")
+            ReactDOM.unmountComponentAtNode( document.getElementById("root") )
+        },5000 )
+    }
+
+    componentWillUpdate(){
+        console.log("componentWillUpdate..")
+    }
+
+    componentDidUpdate(){
+        console.log("componentDidUpdate")
+    }
+
+    componentWillUnmount(){
+        console.log("componentWillUnmount on delete")
+    }
+
+    render(){
+        console.log("render..")
+        return "life"
+    }
+
+}
+
+
+ReactDOM.render(<List/>,document.getElementById("root"))
+
+   
+
+
+
+</script>
+
+
+</html>

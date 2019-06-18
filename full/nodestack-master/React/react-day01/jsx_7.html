@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+    <style type="text/css">
+        .box{
+            width: 300px;
+            height: 300px;
+            background: pink;
+            
+        }
+
+
+        .normal {
+            border: 5px solid #000;
+        }
+
+        .vip {
+            border: 5px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+
+class Test extends React.Component{
+        //为了兼容不同的react版本
+        constructor(...args){
+            //覆盖父类的操作
+            super(...args)
+        }
+
+        render() {
+           
+            //react两种传值的方式：{} 和 ""
+            // {} 表示传值是一个表达式或者一个语句
+            return <div className={["box","vip"].join(" ")}>box-1 ~!</div>
+        }
+
+    }
+
+
+    //ReactDOM.render(<Test></Test>,document.getElementById("root")) //ok
+    ReactDOM.render(<Test />,document.getElementById("root")) //error,在jsx中标签必须是闭合的
+
+   
+
+
+
+
+</script>
+
+
+</html>

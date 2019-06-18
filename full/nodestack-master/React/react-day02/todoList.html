@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+
+class App extends React.Component{
+
+    constructor(...args){
+        super(...args)
+        this.state = {
+            items:["apple","pear","rice"]
+        }
+    }
+    insert(value){
+        let data = this.state.items
+        data.unshift(value)
+        this.setState({
+            items:data 
+        })
+    }
+
+    render() {
+        
+        return (
+            <div>
+            <h1>Simple  ToDoList</h1>
+            <ToDOAdd itemCount={this.state.items.length} AppComponent={this} />
+            <ToDOList data={this.state.items} />
+            </div>
+        )
+    }
+}
+
+
+class ToDOAdd extends React.Component{
+
+    addValue(){
+        this.props.AppComponent.insert( this.refs["tValue"].value )
+    }
+
+    render(){
+        return (
+            <div>
+                <input type="text" ref="tValue" />
+                <button onClick={this.addValue.bind(this)}>Add#{this.props.itemCount}</button>
+            </div>
+        )
+    }
+}
+
+
+class ToDOList extends React.Component{
+
+    constructor(...args){
+        super(...args)
+        this.state = {
+            items:this.props.data
+        }
+    }
+
+    render(){
+        let items = this.state.items.map( (item,index)=>{
+            return <li key={index}>{item}</li>
+        } )
+        return (
+            <ul>
+                {items}
+            </ul>
+        )
+    }
+}
+
+ReactDOM.render(<App />,document.getElementById("root"))
+
+   
+
+
+
+</script>
+
+
+</html>

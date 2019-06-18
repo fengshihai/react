@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+
+<script type="text/babel">
+
+    class NewsList extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {
+                items:this.props.data
+            }
+        }
+
+        render(){
+            let items = this.state.items.map( (item,index)=>{
+                return <Item key={index} title={item.title} author={item.author} />
+            } )
+            return (
+                <div>
+                    {items}
+                </div>
+            )
+        }
+    }
+
+
+    class Item extends React.Component{
+        render(){
+            return <p>标题:{this.props.title},作者:{this.props.author}</p>
+        }
+    }
+    let newsList = [
+        {title:"nodejs-1",author:"pengjin"},
+        {title:"nodejs-2",author:"pengjin"},
+        {title:"nodejs-3",author:"pengjin"},
+        {title:"nodejs-4",author:"pengjin"},
+    ]
+    ReactDOM.render(<NewsList data={newsList} />,document.getElementById("root"))
+</script>
+
+</html>

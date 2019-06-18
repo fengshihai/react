@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+
+function clickEvent() {
+    alert("hahaha")
+}
+
+class Test extends React.Component{
+        //为了兼容不同的react版本
+        constructor(...args){
+            //覆盖父类的操作
+            super(...args)
+        }
+
+        render() {
+            
+            return (
+                <div>
+                    <button onClick={clickEvent}>点击我</button>
+                </div>
+            )
+        }
+
+    }
+
+    ReactDOM.render(<Test />,document.getElementById("root")) //error,在jsx中标签必须是闭合的
+
+   
+
+
+
+
+</script>
+
+
+</html>

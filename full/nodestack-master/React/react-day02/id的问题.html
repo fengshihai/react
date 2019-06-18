@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+    class MathTools extends React.Component{
+
+        constructor(...args){
+            super(...args)
+
+            this.state = {
+                X:0,
+                Y:0
+            }
+        }
+
+        sumXY(){
+            let x = parseInt( document.getElementById("valueX").value ) 
+            let y = parseInt( document.getElementById("valueY").value ) 
+            //alert(x)
+            //alert(y)
+
+            this.setState({
+                X:x,
+                Y:y 
+            })
+        }
+
+        render(){
+            return (
+                <p>
+                    <input type="text" id="valueX" />+<input type="text" id="valueY" /><button onClick={this.sumXY.bind(this)}> result is </button>&nbsp;<span style={{fontSize:"40px"}}>{this.state.X+this.state.Y}</span>
+                </p>
+            )
+        }
+
+    }
+
+
+
+    //ReactDOM必须要操作一个根节点
+    ReactDOM.render(<div>
+                            <MathTools /><MathTools /><MathTools /><MathTools />
+                    </div>,document.getElementById("root")) 
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+
+
+class List extends React.Component{
+       
+    constructor(...args){
+        super(...args)
+        this.state = {
+            data:this.props.news 
+        }
+    }
+
+    render(){
+        let newsItems = this.state.data.map( (item,index)=>{
+            return <li key={index}>{item}</li> 
+        } ) 
+
+        return (
+            <ul>
+                 {newsItems}
+            </ul>
+        )
+    }
+
+}
+
+
+let newsData = ["news-1","news-2","news-3"]
+ReactDOM.render(<List news={newsData} />,document.getElementById("root"))
+
+   
+
+
+
+</script>
+
+
+</html>

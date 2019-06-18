@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>React-Slider Component</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .Slider {
+            width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .Slider ul {
+            position: absolute;
+            width: 1600px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            transition: 0.7s all ease;
+        }
+
+        .Slider ul li {
+            float: left;
+            width: 400px;
+            height: 300px;
+            position: relative;
+        }
+
+
+        .Slider ol {
+            position: absolute;
+            width: 104px;
+            height: 16px;
+            bottom: 15px;
+            left: 10px;
+        }
+
+
+        .Slider ol li {
+            width: 16px;
+            height: 16px;
+            margin: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            float: left;
+            cursor: pointer;
+        }
+
+        .Slider ol li.active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器-->
+
+<script type="text/babel">
+class Slider extends React.Component {
+    constructor(...args){
+        super(...args)
+        this.now  = 0 
+        this.state = {
+            nowIndex:0   //初始化图片显示为第1张
+        }
+    }
+
+    //点击切换图片
+    clickSwitchPic(index){
+        this.setState({
+            nowIndex:index
+        })
+    }
+
+    componentDidMount() {
+        
+        setInterval(()=>{
+            
+            if(this.state.nowIndex===this.props.lastIndex){
+               this.now = 0
+            }else{
+                this.now ++
+            }
+
+            this.setState({
+                nowIndex:this.now
+            })
+        }, 1000);
+    }
+
+
+
+    render(){
+        //渲染图片列表
+        let imgsList = this.props.imgs.map( (item,index)=>{
+            return <li  key={index}><img src={item} /></li> 
+        } )
+
+        //渲染图片圆点
+        let circles = this.props.imgs.map( (item,index)=>{
+            return <li onClick={this.clickSwitchPic.bind(this,index)} key={index} className={this.state.nowIndex===index?"active":""} ></li> 
+        } )
+
+
+        return (
+                <div className="Slider">
+                        <ul style={{left:this.state.nowIndex*-400}}>
+                            {imgsList}
+                        </ul>
+
+                        <ol>
+                            {circles}
+                        </ol>
+                </div>
+        )
+    }
+}
+
+let images = ["./images/1.jpg","./images/2.jpg","./images/3.jpg","./images/4.jpg"]
+let lastIndex = images.length - 1
+ReactDOM.render(<Slider imgs={images} lastIndex={lastIndex} />,document.getElementById("root"))
+</script>
+
+</html>

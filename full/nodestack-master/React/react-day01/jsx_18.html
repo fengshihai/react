@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React安装</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script> <!-- jsx 解析器--> 
+
+<script type="text/babel">
+
+
+
+class Math extends React.Component{
+        //为了兼容不同的react版本
+        constructor(...args){
+            //覆盖父类的操作
+            super(...args)
+
+            //初始化状态有２个重点:
+            //1.一般初始化状态在构造函数(或者是在某些生命周期函数中)中完成
+            //2.必须使用this.state关键字,并且必须指向一个对象
+            this.state = {
+                count : this.props.Count 
+            }
+        }
+
+        addCount(){
+            //在react中状态是可以发生修改的
+            //1.修改必须要使用this.setState方法发生修改
+            //2.状态的修改会使得render函数（或者某些声明周期函数被调用）被重新调用
+            this.setState({
+                //this.state.count是获取
+                count:this.state.count + 1
+            })
+
+        }
+
+        render() {
+           
+            return (
+                <div>
+                   <h1>{this.state.count}</h1>
+                   <button onClick={this.addCount.bind(this)}>点击我加１</button>
+                </div>
+            )
+        }
+
+}
+
+
+
+ReactDOM.render(<Math Count={0} />,document.getElementById("root")) //error,在jsx中标签必须是闭合的
+
+   
+
+
+
+</script>
+
+
+</html>

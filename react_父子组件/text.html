@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>SimpleToDoList</title>
+	</head>
+	<body>
+		<div id="root"></div>
+	</body>
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+<script type="text/babel">
+	class App extends React.Component{
+		constructor(...args){
+			super(...args)
+			this.state = {
+				//定义数据容器,并初始化
+				items:[
+					'pear',
+					'apple',
+					'rice',
+				]
+			}
+		}
+		insert(value){
+			let data = this.state.items
+			data.unshift(value)		//往数组的头部添加
+			this.setState({
+				 items:data 
+			})
+		}
+		render(){
+			return(
+				<div>
+					<h1>SimpleToDoList</h1>
+					<ToDoadd itemCount={this.state.items.length} AppComponent={this} />
+					<ToDoList data={this.state.items} />
+				</div>
+			)
+		}
+	}
+	class ToDoadd extends React.Component{
+		addValue(){
+		        this.props.AppComponent.insert( this.refs["tValue"].value )
+		    }
+		
+		    render(){
+		        return (
+		            <div>
+		                <input type="text" ref="tValue" />
+		                <button onClick={this.addValue.bind(this)}>Add#{this.props.itemCount}</button>
+		            </div>
+		        )
+		    }
+	}
+	class ToDoList extends React.Component{
+		constructor(...args){
+		        super(...args)
+		        this.state = {
+		            items:this.props.data
+		        }
+		    }
+		 render(){
+        		let items = this.state.items.map( (item,index)=>{
+           	 	return <li key={index}>{item}</li>
+        		} )
+        	return (
+            	<ul>
+                	{items}
+            	</ul>
+        	)
+    	}
+	}
+	
+	ReactDOM.render(<App />,document.getElementById("root"))
+</script>
+</html>

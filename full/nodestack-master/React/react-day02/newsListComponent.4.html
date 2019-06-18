@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+
+<script type="text/babel">
+
+    class NewsList extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {
+                items:this.props.data
+            }
+        }
+
+
+        delNewsById(id){
+            //alert(id)
+            let data = this.state.items;
+            let newItems = data.filter(item=>item.id !== id)
+            this.setState({
+                items:newItems
+            })
+        }
+
+        render(){
+            let items = this.state.items.map( (item,index)=>{
+                //构造子组件的属性
+                return <Item key={index} id={item.id} title={item.title} author={item.author} newsComponent={this} />
+            } )
+            return (
+                <div>
+                    {items}
+                </div>
+            )
+        }
+    }
+
+
+    class Item extends React.Component{
+
+        delNewsFromList(){
+            //访问自己的属性newsComponent指向了父亲
+            this.props.newsComponent.delNewsById(this.props.id)
+        }
+
+        render(){
+            return <p>标题:{this.props.title},作者:{this.props.author}&nbsp;<a href="javascript:" onClick={this.delNewsFromList.bind(this)}>删除</a></p>
+        }
+    }
+    let newsList = [
+        {id:1,title:"nodejs-1",author:"pengjin"},
+        {id:2,title:"nodejs-2",author:"pengjin"},
+        {id:3,title:"nodejs-3",author:"pengjin"},
+        {id:4,title:"nodejs-4",author:"pengjin"},
+    ]
+    ReactDOM.render(<NewsList data={newsList} />,document.getElementById("root"))
+</script>
+
+</html>
