@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        span {
+            color: aqua
+        }
+    </style>
+</head>
+<body>
+    <% include top.ejs %>
+    <%
+        var a =1 ;
+        var b = 2 ;
+        var sum = a+b;
+    %>
+    <%=sum%>
+    <%for(let i of name){%>
+    <span><%= i %></span>
+    <% }%>
+</body>
+
+</html>
